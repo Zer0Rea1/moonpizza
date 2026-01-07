@@ -58,7 +58,7 @@ const Navbar = ({ onCartClick }) => {
                         </div>
                         <div className="hidden sm:block">
                             <h1 className="font-serif text-2xl font-bold text-white">
-                                Slice<span className="text-[#ff6b35]">&</span>Sizzle
+                                Moon Pizza
                             </h1>
                         </div>
                     </motion.a>
