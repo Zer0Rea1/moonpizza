@@ -79,11 +79,11 @@ export const useCartStore = create(
             },
 
             getTax: () => {
-                return get().getSubtotal() * TAX_RATE;
+                return 0;
             },
 
             getTotal: () => {
-                return get().getSubtotal() + get().getTax();
+                return get().getSubtotal();
             },
 
             getItemCount: () => {

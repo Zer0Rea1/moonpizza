@@ -696,7 +696,7 @@ const Checkout = ({ isOpen, onClose }) => {
                                                                     {item.name} × {item.quantity}
                                                                 </span>
                                                                 <span style={{ color: 'white', fontWeight: '500' }}>
-                                                                    ${(item.price * item.quantity).toFixed(2)}
+                                                                    PKR {(item.price * item.quantity).toFixed(0)}
                                                                 </span>
                                                             </div>
                                                         ))}
@@ -717,20 +717,9 @@ const Checkout = ({ isOpen, onClose }) => {
                                                                 }}
                                                             >
                                                                 <span>Subtotal</span>
-                                                                <span>${getSubtotal().toFixed(2)}</span>
+                                                                <span>PKR {getSubtotal().toFixed(0)}</span>
                                                             </div>
-                                                            <div
-                                                                style={{
-                                                                    display: 'flex',
-                                                                    justifyContent: 'space-between',
-                                                                    fontSize: '14px',
-                                                                    color: '#9ca3af',
-                                                                    marginBottom: '10px',
-                                                                }}
-                                                            >
-                                                                <span>Tax</span>
-                                                                <span>${getTax().toFixed(2)}</span>
-                                                            </div>
+
                                                             <div
                                                                 style={{
                                                                     display: 'flex',
@@ -742,7 +731,7 @@ const Checkout = ({ isOpen, onClose }) => {
                                                                 }}
                                                             >
                                                                 <span>Total</span>
-                                                                <span style={{ color: '#ff6b35' }}>${getTotal().toFixed(2)}</span>
+                                                                <span style={{ color: '#ff6b35' }}>PKR {getTotal().toFixed(0)}</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -782,74 +771,74 @@ const Checkout = ({ isOpen, onClose }) => {
                                             </div>
                                         )}
                                         <div style={{ display: 'flex', gap: '16px' }}>
-                                        {currentStep > 1 && (
+                                            {currentStep > 1 && (
+                                                <motion.button
+                                                    whileHover={{ scale: 1.02 }}
+                                                    whileTap={{ scale: 0.98 }}
+                                                    onClick={prevStep}
+                                                    style={{
+                                                        flex: 1,
+                                                        padding: '18px',
+                                                        backgroundColor: '#1a1a1a',
+                                                        color: 'white',
+                                                        fontWeight: '600',
+                                                        fontSize: '16px',
+                                                        borderRadius: '16px',
+                                                        border: 'none',
+                                                        cursor: 'pointer',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        gap: '10px',
+                                                    }}
+                                                >
+                                                    <ArrowLeft style={{ width: '20px', height: '20px' }} />
+                                                    Back
+                                                </motion.button>
+                                            )}
                                             <motion.button
                                                 whileHover={{ scale: 1.02 }}
                                                 whileTap={{ scale: 0.98 }}
-                                                onClick={prevStep}
+                                                onClick={currentStep === 2 ? handleSubmit : nextStep}
+                                                disabled={isProcessing}
                                                 style={{
-                                                    flex: 1,
+                                                    flex: currentStep > 1 ? 1 : '1 1 100%',
                                                     padding: '18px',
-                                                    backgroundColor: '#1a1a1a',
+                                                    background: 'linear-gradient(135deg, #ff6b35 0%, #e55a28 100%)',
                                                     color: 'white',
-                                                    fontWeight: '600',
+                                                    fontWeight: '700',
                                                     fontSize: '16px',
                                                     borderRadius: '16px',
                                                     border: 'none',
-                                                    cursor: 'pointer',
+                                                    cursor: isProcessing ? 'not-allowed' : 'pointer',
                                                     display: 'flex',
                                                     alignItems: 'center',
                                                     justifyContent: 'center',
                                                     gap: '10px',
+                                                    boxShadow: '0 10px 30px rgba(255, 107, 53, 0.3)',
+                                                    opacity: isProcessing ? 0.7 : 1,
                                                 }}
                                             >
-                                                <ArrowLeft style={{ width: '20px', height: '20px' }} />
-                                                Back
+                                                {isProcessing ? (
+                                                    <>
+                                                        <Loader2
+                                                            style={{
+                                                                width: '20px',
+                                                                height: '20px',
+                                                                animation: 'spin 1s linear infinite',
+                                                            }}
+                                                        />
+                                                        Processing...
+                                                    </>
+                                                ) : currentStep === 2 ? (
+                                                    <>Place Order - PKR {getTotal().toFixed(0)}</>
+                                                ) : (
+                                                    <>
+                                                        Continue
+                                                        <ArrowRight style={{ width: '20px', height: '20px' }} />
+                                                    </>
+                                                )}
                                             </motion.button>
-                                        )}
-                                        <motion.button
-                                            whileHover={{ scale: 1.02 }}
-                                            whileTap={{ scale: 0.98 }}
-                                            onClick={currentStep === 2 ? handleSubmit : nextStep}
-                                            disabled={isProcessing}
-                                            style={{
-                                                flex: currentStep > 1 ? 1 : '1 1 100%',
-                                                padding: '18px',
-                                                background: 'linear-gradient(135deg, #ff6b35 0%, #e55a28 100%)',
-                                                color: 'white',
-                                                fontWeight: '700',
-                                                fontSize: '16px',
-                                                borderRadius: '16px',
-                                                border: 'none',
-                                                cursor: isProcessing ? 'not-allowed' : 'pointer',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                gap: '10px',
-                                                boxShadow: '0 10px 30px rgba(255, 107, 53, 0.3)',
-                                                opacity: isProcessing ? 0.7 : 1,
-                                            }}
-                                        >
-                                            {isProcessing ? (
-                                                <>
-                                                    <Loader2
-                                                        style={{
-                                                            width: '20px',
-                                                            height: '20px',
-                                                            animation: 'spin 1s linear infinite',
-                                                        }}
-                                                    />
-                                                    Processing...
-                                                </>
-                                            ) : currentStep === 2 ? (
-                                                <>Place Order - ${getTotal().toFixed(2)}</>
-                                            ) : (
-                                                <>
-                                                    Continue
-                                                    <ArrowRight style={{ width: '20px', height: '20px' }} />
-                                                </>
-                                            )}
-                                        </motion.button>
                                         </div>
                                     </div>
                                 </div>

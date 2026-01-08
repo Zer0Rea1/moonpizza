@@ -221,7 +221,7 @@ const Cart = ({ isOpen, onClose, onCheckout }) => {
                                                     fontWeight: '700',
                                                     fontSize: '18px',
                                                 }}>
-                                                    ${(item.price * item.quantity).toFixed(2)}
+                                                    PKR {(item.price * item.quantity).toFixed(0)}
                                                 </p>
                                             </div>
 
@@ -354,18 +354,9 @@ const Cart = ({ isOpen, onClose, onCheckout }) => {
                                         marginBottom: '12px',
                                     }}>
                                         <span>Subtotal</span>
-                                        <span>${getSubtotal().toFixed(2)}</span>
+                                        <span>PKR {getSubtotal().toFixed(0)}</span>
                                     </div>
-                                    <div style={{
-                                        display: 'flex',
-                                        justifyContent: 'space-between',
-                                        color: '#9ca3af',
-                                        fontSize: '15px',
-                                        marginBottom: '16px',
-                                    }}>
-                                        <span>Tax (8.75%)</span>
-                                        <span>${getTax().toFixed(2)}</span>
-                                    </div>
+
                                     <div style={{
                                         display: 'flex',
                                         justifyContent: 'space-between',
@@ -376,7 +367,7 @@ const Cart = ({ isOpen, onClose, onCheckout }) => {
                                         borderTop: '1px solid rgba(255, 255, 255, 0.1)',
                                     }}>
                                         <span>Total</span>
-                                        <span style={{ color: '#ff6b35' }}>${getTotal().toFixed(2)}</span>
+                                        <span style={{ color: '#ff6b35' }}>PKR {getTotal().toFixed(0)}</span>
                                     </div>
                                 </div>
 

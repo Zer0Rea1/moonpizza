@@ -8,16 +8,16 @@ const PORT = process.env.PORT;
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
- app.use(cors({
+app.use(cors({
     origin: process.env.ORIGIN,  // Only allow frontend
     methods: ['GET', 'POST'],
     credentials: true
-  }));
+}));
 
 app.use(express.json());
 
 // Format order for Telegram message
-function formatOrderMessage(order,orderId) {
+function formatOrderMessage(order, orderId) {
     const { customer, items, subtotal, tax, total } = order;
 
     let message = `🍕 *NEW ORDER*\n`;
@@ -37,13 +37,12 @@ function formatOrderMessage(order,orderId) {
     // Order items
     message += `🛒 *Order Items:*\n`;
     items.forEach((item, index) => {
-        message += `${index + 1}. ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}\n`;
+        message += `${index + 1}. ${item.name} x${item.quantity} - PKR ${(item.price * item.quantity).toFixed(0)}\n`;
     });
 
     message += `\n━━━━━━━━━━━━━━━\n`;
-    message += `💵 Subtotal: $${subtotal.toFixed(2)}\n`;
-    message += `📊 Tax: $${tax.toFixed(2)}\n`;
-    message += `💰 *Total: $${total.toFixed(2)}*\n`;
+    message += `💵 Subtotal: PKR ${subtotal.toFixed(0)}\n`;
+    message += `💰 *Total: PKR ${total.toFixed(0)}*\n`;
     message += `━━━━━━━━━━━━━━━\n\n`;
     message += `⏰ ${new Date().toLocaleString()}`;
 
@@ -101,7 +100,7 @@ app.post('/api/orders', async (req, res) => {
 
         const orderId = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
         // Format and send to Telegram
-        const message = formatOrderMessage(order,orderId);
+        const message = formatOrderMessage(order, orderId);
         const telegramResult = await sendTelegramMessage(message);
 
         if (!telegramResult.success) {

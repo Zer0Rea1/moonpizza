@@ -211,7 +211,7 @@ const ProductCard = ({ product, index }) => {
                         cursor: 'pointer',
                         transition: 'background-color 0.3s ease',
                     }}
-                    className="md:opacity-0 md:group-hover:opacity-100 max-md:!opacity-100 max-md:!transform-none"
+                    className="md:opacity-0 md:group-hover:opacity-100 max-md:opacity-100! max-md:transform-none!"
                 >
                     <Plus style={{ width: '20px', height: '20px' }} />
                     Add to Cart
@@ -262,7 +262,7 @@ const ProductCard = ({ product, index }) => {
                 {/* Price & Add Button */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
-                        <span style={{ fontSize: '24px', fontWeight: '700', color: 'white' }}>${product.price.toFixed(2)}</span>
+                        <span style={{ fontSize: '24px', fontWeight: '700', color: 'white' }}>PKR {product.price.toFixed(0)}</span>
                     </div>
 
                     <motion.button
